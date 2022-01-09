@@ -31,6 +31,9 @@ function LoginPage(){
             <FormLabel htmlFor='email'>Password</FormLabel>
             <Input id='password' type='password' placeholder='Password' />
           </FormControl>
+          <Button type="submit" variantColor="blue.200" width="full" mt={4}>
+            Sign In
+          </Button>
           
           <Stack justify="center" color="gray.600" spacing="3">
             <Text as="div" textAlign="center">
