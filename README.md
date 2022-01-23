@@ -43,7 +43,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-Uses [Formik](https://formik.org/docs/overview) to handle Forms and [YUP](https://www.npmjs.com/package/yup) to validate Forms
+Uses [Formik](https://formik.org/docs/overview) to handle Forms
 
 Based on this tutorial: https://www.youtube.com/watch?v=vPjQF6QAZgo&t=181s
 
