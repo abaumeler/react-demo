@@ -3,12 +3,24 @@ import {
   ChakraProvider,
   theme,
 } from '@chakra-ui/react';
-import LoginPage from './LoginPage';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <LoginPage/>   
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage/>} /> 
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/signup" element={<SignUpPage/>} />
+        </Routes>
+      </Router>  
     </ChakraProvider>
   );
 }

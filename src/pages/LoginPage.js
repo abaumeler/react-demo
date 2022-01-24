@@ -10,7 +10,8 @@ import {
   FormErrorMessage,
   useColorModeValue
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+import {Link} from 'react-router-dom'
+import { ColorModeSwitcher } from '../Utils/ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
 
 
@@ -85,7 +86,7 @@ function LoginPage() {
         </Formik>
         <Stack justify="center" spacing="3">
           <Text as="div" textAlign="center">
-            <span>Don&lsquo;t have an account? </span><Button variant="link">Sign Up</Button>
+            <span>Don&lsquo;t have an account? </span><Link to='/signup'><Button variant="link">Sign Up</Button></Link>
           </Text>
           <Button variant="link">Forgot password?</Button>
         </Stack>
