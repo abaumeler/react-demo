@@ -11,7 +11,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react';
 import {Link} from 'react-router-dom'
-import { ColorModeSwitcher } from '../utils/ColorModeSwitcher';
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
 
 

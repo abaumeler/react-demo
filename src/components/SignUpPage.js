@@ -10,7 +10,7 @@ import {
     FormErrorMessage,
     useColorModeValue
   } from '@chakra-ui/react';
-  import { ColorModeSwitcher } from '../utils/ColorModeSwitcher';
+  import { ColorModeSwitcher } from './ColorModeSwitcher';
   import { Formik, Form, Field } from 'formik';
   
   
