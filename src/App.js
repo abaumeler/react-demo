@@ -8,8 +8,8 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
+import LoginPage from './/components/LoginPage';
+import SignUpPage from './/components/SignUpPage';
 
 function App() {
   return (

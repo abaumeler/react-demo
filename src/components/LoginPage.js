@@ -11,13 +11,13 @@ import {
   useColorModeValue
 } from '@chakra-ui/react';
 import {Link} from 'react-router-dom'
-import { ColorModeSwitcher } from '../Utils/ColorModeSwitcher';
+import { ColorModeSwitcher } from '../utils/ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
 
 
 function LoginPage() {
   const bg = useColorModeValue('gray.100', 'gray.900')
-  const logo = useColorModeValue('reshot-icon-food-equipment_light.png', 'reshot-icon-food-equipment_dark.png')
+  const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png')
 
   function validateEmail(value) {
     let error

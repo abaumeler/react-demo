@@ -8,16 +8,15 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    useColorModeValue,
-    Flex
+    useColorModeValue
   } from '@chakra-ui/react';
-  import { ColorModeSwitcher } from '../Utils/ColorModeSwitcher';
+  import { ColorModeSwitcher } from '../utils/ColorModeSwitcher';
   import { Formik, Form, Field } from 'formik';
   
   
   function SignUpPage() {
     const bg = useColorModeValue('gray.100', 'gray.900')
-    const logo = useColorModeValue('reshot-icon-food-equipment_light.png', 'reshot-icon-food-equipment_dark.png')
+    const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png')
   
     function validateFirstName(value) {
       let error
