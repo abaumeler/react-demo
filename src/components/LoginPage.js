@@ -10,15 +10,18 @@ import {
   FormErrorMessage,
   useColorModeValue
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
 import axios from 'axios';
 
 
-function LoginPage() {
-  const bg = useColorModeValue('gray.100', 'gray.900')
-  const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png')
+function LoginPage(props) {
+  const bg = useColorModeValue('gray.100', 'gray.900');
+  const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png');
+  const [user, setUser] = useState("");
+  const [token, setToken] = useState("");
 
   function validateEmail(value) {
     let error
@@ -56,9 +59,13 @@ function LoginPage() {
       actions.setSubmitting(false);
       actions.resetForm();
       console.log(response);
+      setUser(response.data.user.name);
+      setToken(response.data.user.token);
+      props.history.push("/UserPage");
+
     } catch (error) {
       actions.setSubmitting(false);
-      console.error(error.response.data.error);
+      console.error(error);
     }
   }
 
