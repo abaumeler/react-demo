@@ -38,9 +38,9 @@ function LoginPage() {
   return (
     <Center h="100vh">
       <Stack boxShadow="2xl" p="20" rounded="md" bg={bg}>
-        <img src={logo} maxW="20px" mb="10" mx="auto" alt="logo" />
+        <img src={logo} maxw="20px" mb="10" mx="auto" alt="logo" />
         <Heading as="h1">Log in.</Heading>
-        <Text fontsize="lg">Please log in to access FoodPlanner</Text>
+        <Text fontSize="lg">Please log in to access FoodPlanner</Text>
         <Formik
           initialValues={{
             email: '',

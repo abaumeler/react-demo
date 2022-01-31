@@ -54,9 +54,9 @@ import {
     return (
       <Center h="100vh">
         <Stack boxShadow="2xl" p="20" rounded="md" bg={bg}>
-          <img src={logo} maxW="20px" mb="10" mx="auto" alt="logo" />
+          <img src={logo} maxw="20px" mb="10" mx="auto" alt="logo" />
           <Heading as="h1">Hello!</Heading>
-          <Text fontsize="lg">Sign up for FoodPlanner</Text>
+          <Text fontSize="lg">Sign up for FoodPlanner</Text>
           <Formik
             initialValues={{
               firstname: '',
