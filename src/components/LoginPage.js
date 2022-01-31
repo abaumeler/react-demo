@@ -10,7 +10,7 @@ import {
   FormErrorMessage,
   useColorModeValue
 } from '@chakra-ui/react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
 import axios from 'axios';
@@ -37,15 +37,26 @@ function LoginPage() {
   }
 
   const handleOnSubmit = async (values, actions) => {
-    try{
+    try {
+      console.log(values);
       const response = await axios({
-        method: "GET",
-        url: "http://localhost:3000/test"
+        method: "POST",
+        url: 'http://localhost:3000/login',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        data: {
+          user: {
+            email: values.email,
+            password: values.password
+          }
+        }
       });
       actions.setSubmitting(false);
       actions.resetForm();
       console.log(response);
-    }catch(error){
+    } catch (error) {
       actions.setSubmitting(false);
       console.error(error.response.data.error);
     }
