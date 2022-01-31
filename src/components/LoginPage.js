@@ -13,6 +13,7 @@ import {
 import {Link} from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
+import axios from 'axios';
 
 
 function LoginPage() {
@@ -35,6 +36,21 @@ function LoginPage() {
     return error
   }
 
+  const handleOnSubmit = async (values, actions) => {
+    try{
+      const response = await axios({
+        method: "GET",
+        url: "http://localhost:3000/test"
+      });
+      actions.setSubmitting(false);
+      actions.resetForm();
+      console.log(response);
+    }catch(error){
+      actions.setSubmitting(false);
+      console.error(error.response.data.error);
+    }
+  }
+
   return (
     <Center h="100vh">
       <Stack boxShadow="2xl" p="20" rounded="md" bg={bg}>
@@ -46,12 +62,7 @@ function LoginPage() {
             email: '',
             password: ''
           }}
-          onSubmit={(values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2))
-              actions.setSubmitting(false)
-            }, 1000)
-          }}
+          onSubmit={handleOnSubmit}
         >
           {(props) => (
             <Form>
