@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import axios from 'axios';
 
 
@@ -23,21 +24,12 @@ function LoginPage() {
   const [user, setUser] = useState("");
   const [token, setToken] = useState("");
 
-  function validateEmail(value) {
-    let error
-    if (!value) {
-      error = 'Email is required'
-    }
-    return error
-  }
-
-  function validatePassword(value) {
-    let error
-    if (!value) {
-      error = 'Password is required'
-    }
-    return error
-  }
+  const validate = Yup.object({
+    email: Yup.string()
+     .required('Email is required'),
+    password: Yup.string()
+     .required('Password is required'),
+  });
 
   const handleOnSubmit = async (values, actions) => {
     try {
@@ -78,11 +70,12 @@ function LoginPage() {
             email: '',
             password: ''
           }}
+          validationSchema={validate}
           onSubmit={handleOnSubmit}
         >
           {(props) => (
             <Form>
-              <Field name='email' validate={validateEmail}>
+              <Field name='email'>
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.email && form.touched.email}>
                     <FormLabel htmlFor='name'>E-Mail</FormLabel>
@@ -91,7 +84,7 @@ function LoginPage() {
                   </FormControl>
                 )}
               </Field>
-              <Field name='password' validate={validatePassword}>
+              <Field name='password'>
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.password && form.touched.password}>
                     <FormLabel htmlFor='password'>Password</FormLabel>

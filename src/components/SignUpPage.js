@@ -12,45 +12,61 @@ import {
   } from '@chakra-ui/react';
   import { ColorModeSwitcher } from './ColorModeSwitcher';
   import { Formik, Form, Field } from 'formik';
+  import axios from 'axios';
+  import * as Yup from 'yup';
   
   
   function SignUpPage() {
     const bg = useColorModeValue('gray.100', 'gray.900')
     const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png')
   
-    function validateFirstName(value) {
-      let error
-      if (!value) {
-        error = 'First Name is required'
+    const validate = Yup.object({
+      firstName: Yup.string()
+       .min(3, 'Must be at least 3 characters')
+       .max(15, 'Must be 15 characters or less')
+       .required('Firstname is required'),
+      lastName: Yup.string()
+       .min(3, 'Must be at least 3 characters')
+       .max(15, 'Must be 15 characters or less')
+       .required('Lastname is required'),
+      email: Yup.string()
+       .email('Email is invalid')
+       .required('Email is required'),
+      password: Yup.string()
+       .min(6, 'Password must be at least 6 characters')
+       .required('Password is required'),
+      confirmPassword: Yup.string()
+       .oneOf([Yup.ref('password'), null], 'Password must match')
+       .required('Please enter password again'),
+    });
+
+    const handleOnSubmit = async (values, actions) => {
+      try {
+        console.log(values);
+        const response = await axios({
+          method: "POST",
+          url: process.env.REACT_APP_API_URL+'/users/register',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          data: {
+            user: {
+              email: values.email,
+              password: values.password,
+              name: values.firstName
+            }
+          }
+        });
+        actions.setSubmitting(false);
+        actions.resetForm();
+        console.log(response); 
+      } catch (error) {
+        actions.setSubmitting(false);
+        console.error(error);
       }
-      return error
     }
 
-    function validateLastName(value) {
-      let error
-      if (!value) {
-        error ='Last Name is required'
-      }
-      return error
-    }
-    
-    
-    function validateEmail(value) {
-      let error
-      if (!value) {
-        error = 'Email is required'
-      }
-      return error
-    }
-  
-    function validatePassword(value) {
-      let error
-      if (!value) {
-        error = 'Password is required'
-      }
-      return error
-    }
-  
     return (
       <Center h="100vh">
         <Stack boxShadow="2xl" p="20" rounded="md" bg={bg}>
@@ -59,48 +75,44 @@ import {
           <Text fontSize="lg">Sign up for FoodPlanner</Text>
           <Formik
             initialValues={{
-              firstname: '',
-              lastname: '',
+              firstName: '',
+              lastName: '',
               email: '',
               password: ''
             }}
-            onSubmit={(values, actions) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2))
-                actions.setSubmitting(false)
-              }, 1000)
-            }}
+            validationSchema={validate}
+            onSubmit={handleOnSubmit}
           >
             {(props) => (
               <Form>
-                <Field name='firstname' validate={validateFirstName}>
+                <Field name='firstName'>
                   {({ field, form }) => (
-                    <FormControl isInvalid={form.errors.firstname && form.touched.firstname}>
-                      <FormLabel htmlFor='firstname'>First Name</FormLabel>
-                      <Input {...field} id='firstname' placeholder='first name' />
-                      <FormErrorMessage>{form.errors.firstname}</FormErrorMessage>
+                    <FormControl isInvalid={form.errors.firstName && form.touched.firstName}>
+                      <FormLabel htmlFor='firstName'>First Name</FormLabel>
+                      <Input {...field} id='firstName' placeholder='first name' />
+                      <FormErrorMessage>{form.errors.firstName}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
-                <Field name='lastname' validate={validateLastName}>
+                <Field name='lastName'>
                   {({ field, form }) => (
-                    <FormControl isInvalid={form.errors.lastname && form.touched.lastname}>
-                      <FormLabel htmlFor='lastname'>Last Name</FormLabel>
-                      <Input {...field} id='lastname' placeholder='last Name' />
-                      <FormErrorMessage>{form.errors.lastname}</FormErrorMessage>
+                    <FormControl isInvalid={form.errors.lastName && form.touched.lastName}>
+                      <FormLabel htmlFor='lastName'>Last Name</FormLabel>
+                      <Input {...field} id='lastName' placeholder='last Name' />
+                      <FormErrorMessage>{form.errors.lastName}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
-                <Field name='email' validate={validateEmail}>
+                <Field name='email'>
                   {({ field, form }) => (
                     <FormControl isInvalid={form.errors.email && form.touched.email}>
-                      <FormLabel htmlFor='name'>E-Mail</FormLabel>
+                      <FormLabel htmlFor='email'>E-Mail</FormLabel>
                       <Input {...field} id='email' placeholder='e-mail' />
                       <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
-                <Field name='password' validate={validatePassword}>
+                <Field name='password'>
                   {({ field, form }) => (
                     <FormControl isInvalid={form.errors.password && form.touched.password}>
                       <FormLabel htmlFor='password'>Password</FormLabel>
@@ -109,12 +121,12 @@ import {
                     </FormControl>
                   )}
                 </Field>
-                <Field name='password' validate={validatePassword}>
+                <Field name='confirmPassword'>
                   {({ field, form }) => (
-                    <FormControl isInvalid={form.errors.passwordconf && form.touched.passwordconf}>
-                      <FormLabel htmlFor='passwordconf'>Confirm Password</FormLabel>
-                      <Input {...field} id='passwordconf' placeholder='confirm password' type='password' />
-                      <FormErrorMessage>{form.errors.passwordconf}</FormErrorMessage>
+                    <FormControl isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}>
+                      <FormLabel htmlFor='confirmPassword'>Password</FormLabel>
+                      <Input {...field} id='confirmPassword' placeholder='password' type='password' />
+                      <FormErrorMessage>{form.errors.confirmPassword}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
