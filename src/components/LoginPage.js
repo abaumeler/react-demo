@@ -17,7 +17,7 @@ import { Formik, Form, Field } from 'formik';
 import axios from 'axios';
 
 
-function LoginPage(props) {
+function LoginPage() {
   const bg = useColorModeValue('gray.100', 'gray.900');
   const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png');
   const [user, setUser] = useState("");
@@ -44,7 +44,7 @@ function LoginPage(props) {
       console.log(values);
       const response = await axios({
         method: "POST",
-        url: 'http://localhost:3000/login',
+        url: process.env.REACT_APP_API_URL+'/users/login',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -61,8 +61,6 @@ function LoginPage(props) {
       console.log(response);
       setUser(response.data.user.name);
       setToken(response.data.user.token);
-      props.history.push("/UserPage");
-
     } catch (error) {
       actions.setSubmitting(false);
       console.error(error);
