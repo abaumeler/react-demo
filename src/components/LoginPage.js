@@ -15,14 +15,12 @@ import { Link, useHistory } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { login } from '../services/authService'
 
 
 function LoginPage() {
   const bg = useColorModeValue('gray.100', 'gray.900');
   const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png');
-  const [user, setUser] = useState("");
-  const [token, setToken] = useState("");
 
   const validate = Yup.object({
     email: Yup.string()
@@ -34,25 +32,9 @@ function LoginPage() {
   const handleOnSubmit = async (values, actions) => {
     try {
       console.log(values);
-      const response = await axios({
-        method: "POST",
-        url: process.env.REACT_APP_API_URL+'/users/login',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        data: {
-          user: {
-            email: values.email,
-            password: values.password
-          }
-        }
-      });
+      login(values);
       actions.setSubmitting(false);
       actions.resetForm();
-      console.log(response);
-      setUser(response.data.user.name);
-      setToken(response.data.user.token);
     } catch (error) {
       actions.setSubmitting(false);
       console.error(error);

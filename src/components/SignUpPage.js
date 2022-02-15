@@ -14,6 +14,7 @@ import {
   import { Formik, Form, Field } from 'formik';
   import axios from 'axios';
   import * as Yup from 'yup';
+  import { register } from '../services/authService'
   
   
   function SignUpPage() {
@@ -42,25 +43,9 @@ import {
 
     const handleOnSubmit = async (values, actions) => {
       try {
-        console.log(values);
-        const response = await axios({
-          method: "POST",
-          url: process.env.REACT_APP_API_URL+'/users/register',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          data: {
-            user: {
-              email: values.email,
-              password: values.password,
-              name: values.firstName
-            }
-          }
-        });
+        register(values);
         actions.setSubmitting(false);
         actions.resetForm();
-        console.log(response); 
       } catch (error) {
         actions.setSubmitting(false);
         console.error(error);
