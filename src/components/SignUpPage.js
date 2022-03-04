@@ -20,7 +20,7 @@ import {
   
   function SignUpPage() {
     const bg = useColorModeValue('gray.100', 'gray.900');
-    const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png');
+    const logo = useColorModeValue('./favicon.ico', './favicon.ico');
     const navigate = useNavigate();
     const toast = useToast();
   
