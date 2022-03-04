@@ -12,7 +12,6 @@ import {
   } from '@chakra-ui/react';
   import { ColorModeSwitcher } from './ColorModeSwitcher';
   import { Formik, Form, Field } from 'formik';
-  import axios from 'axios';
   import * as Yup from 'yup';
   import { register } from '../services/authService'
   

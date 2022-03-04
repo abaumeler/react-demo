@@ -22,6 +22,7 @@ export const login = async (values) => {
       if (response.data.user.token) {
         console.log(response.data.user.token)
         localStorage.setItem("user", JSON.stringify(response.data));
+        return response.data;
       }
       return response.data;
     } catch (error) {

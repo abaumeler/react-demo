@@ -10,8 +10,7 @@ import {
   FormErrorMessage,
   useColorModeValue
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -21,6 +20,7 @@ import { login } from '../services/authService'
 function LoginPage() {
   const bg = useColorModeValue('gray.100', 'gray.900');
   const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png');
+  const navigate = useNavigate();
 
   const validate = Yup.object({
     email: Yup.string()
@@ -32,9 +32,13 @@ function LoginPage() {
   const handleOnSubmit = async (values, actions) => {
     try {
       console.log(values);
-      login(values);
       actions.setSubmitting(false);
       actions.resetForm();
+      const loginResult = await login(values);
+
+      if(loginResult.user.email){
+        navigate("/home");
+      }
     } catch (error) {
       actions.setSubmitting(false);
       console.error(error);
