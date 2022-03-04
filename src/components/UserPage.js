@@ -6,6 +6,7 @@ import {
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 const API_URL = process.env.REACT_APP_API_URL;
 
 function UserPage() {
@@ -50,6 +51,7 @@ function UserPage() {
   return (
     <Center h="100vh" bg={bg}>
       <Text>Hello {userData.name}!</Text>
+      <ColorModeSwitcher></ColorModeSwitcher>
     </Center>
   );
 }

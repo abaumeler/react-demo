@@ -8,17 +8,21 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    useColorModeValue
+    useColorModeValue,
+    useToast
   } from '@chakra-ui/react';
   import { ColorModeSwitcher } from './ColorModeSwitcher';
+  import { useNavigate } from 'react-router-dom'
   import { Formik, Form, Field } from 'formik';
   import * as Yup from 'yup';
   import { register } from '../services/authService'
   
   
   function SignUpPage() {
-    const bg = useColorModeValue('gray.100', 'gray.900')
-    const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png')
+    const bg = useColorModeValue('gray.100', 'gray.900');
+    const logo = useColorModeValue('./reshot-icon-food-equipment_light.png', './reshot-icon-food-equipment_dark.png');
+    const navigate = useNavigate();
+    const toast = useToast();
   
     const validate = Yup.object({
       firstName: Yup.string()
@@ -45,6 +49,14 @@ import {
         register(values);
         actions.setSubmitting(false);
         actions.resetForm();
+        toast({
+          title: 'Account created.',
+          description: "We've created your account for you.",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
+        navigate("/login");
       } catch (error) {
         actions.setSubmitting(false);
         console.error(error);
