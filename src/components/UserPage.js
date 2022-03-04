@@ -1,12 +1,14 @@
 import {
   Text,
   Center,
+  Stack,
   useColorModeValue
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { ColorModeSwitcher } from './ColorModeSwitcher';
+import Receipe from './Receipe';
 const API_URL = process.env.REACT_APP_API_URL;
 
 function UserPage() {
@@ -49,9 +51,12 @@ function UserPage() {
   }, [navigate]);
 
   return (
-    <Center h="100vh" bg={bg}>
-      <Text>Hello {userData.name}!</Text>
-      <ColorModeSwitcher></ColorModeSwitcher>
+    <Center h="100vh">
+      <Stack>
+        <Text>Hello {userData.name}!</Text>
+        <Receipe></Receipe> 
+        <ColorModeSwitcher></ColorModeSwitcher>
+      </Stack> 
     </Center>
   );
 }
