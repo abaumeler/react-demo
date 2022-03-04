@@ -45,7 +45,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 Uses [Formik](https://formik.org/docs/overview) to handle Forms, see chakra [documentation](https://chakra-ui.com/docs/form/form-control) on Formik integration
 
-Based on this tutorial: https://www.youtube.com/watch?v=vPjQF6QAZgo&t=181s
+Based on these tutorials: 
+- https://www.youtube.com/watch?v=vPjQF6QAZgo&t=181s
+- https://www.bezkoder.com/react-jwt-auth/
 
 ### Code Splitting
 
